@@ -32,11 +32,10 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
   String condition = '';
 
   void fetchWeather() {
-    // Simulate fetching weather data
     setState(() {
-      cityName = 'New York'; // Replace with user input
-      temperature = '${20 + (DateTime.now().second % 15)}°C'; // Random temperature
-      condition = ['Sunny', 'Cloudy', 'Rainy'][DateTime.now().second % 3]; // Random condition
+      cityName = 'New York';
+      temperature = '${20 + (DateTime.now().second % 15)}°C'; 
+      condition = ['Sunny', 'Cloudy', 'Rainy'][DateTime.now().second % 3];
     });
   }
 
@@ -63,14 +62,12 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
             ),
             const SizedBox(height: 20),
 
-            // Button to fetch weather data
             ElevatedButton(
               onPressed: fetchWeather,
               child: const Text('Fetch Weather'),
             ),
             const SizedBox(height: 20),
 
-            // Display weather information
             Text(
               'City: $cityName',
               style: const TextStyle(fontSize: 20),
