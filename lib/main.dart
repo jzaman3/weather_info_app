@@ -56,7 +56,6 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) {
-                // Update cityName if you want to use the user's input
                 setState(() {
                   cityName = value;
                 });
