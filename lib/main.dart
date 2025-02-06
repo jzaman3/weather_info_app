@@ -12,7 +12,7 @@ class WeatherInfoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Weather Info App',
       theme: ThemeData(
-        primarySwatch: const Color.fromARGB(255, 131, 28, 172).fromARGB(255, 99, 211, 166),
+        primarySwatch: Colors.blue,
       ),
       home: const WeatherHomePage(),
     );
@@ -28,14 +28,18 @@ class WeatherHomePage extends StatefulWidget {
 
 class _WeatherHomePageState extends State<WeatherHomePage> {
   String cityName = '';
-  String temperature = '';
-  String condition = '';
+  List<Map<String, String>> forecast = [];
 
   void fetchWeather() {
     setState(() {
-      cityName = 'New York';
-      temperature = '${20 + (DateTime.now().second % 15)}°C'; 
-      condition = ['Sunny', 'Cloudy', 'Rainy'][DateTime.now().second % 3];
+      cityName = 'Georgia';  
+      forecast = List.generate(7, (index) {
+        return {
+          'day': 'Day ${index + 1}',
+          'temperature': '${20 + (DateTime.now().second % 15) - index}°C',
+          'condition': ['Sunny', 'Cloudy', 'Rainy'][index % 3]
+        };
+      });
     });
   }
 
@@ -70,17 +74,37 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
 
             Text(
               'City: $cityName',
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            Text(
-              'Temperature: $temperature',
-              style: const TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Condition: $condition',
-              style: const TextStyle(fontSize: 20),
+
+            // 7-day forecast list
+            Expanded(
+              child: ListView.builder(
+                itemCount: forecast.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      leading: Icon(
+                        forecast[index]['condition'] == 'Sunny'
+                            ? Icons.wb_sunny
+                            : forecast[index]['condition'] == 'Cloudy'
+                                ? Icons.wb_cloudy
+                                : Icons.beach_access,
+                        color: Colors.orange,
+                      ),
+                      title: Text(
+                        forecast[index]['day']!,
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        'Temperature: ${forecast[index]['temperature']}, '
+                        'Condition: ${forecast[index]['condition']}',
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
