@@ -27,7 +27,6 @@ class WeatherHomePage extends StatefulWidget {
 }
 
 class _WeatherHomePageState extends State<WeatherHomePage> {
-  // State variables to store weather data
   String cityName = '';
   String temperature = '';
   String condition = '';
@@ -51,7 +50,6 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // TextField for city name input
             TextField(
               decoration: const InputDecoration(
                 labelText: 'Enter City Name',
